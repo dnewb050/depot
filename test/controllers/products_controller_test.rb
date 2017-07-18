@@ -14,6 +14,14 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get products_url
     assert_response :success
+# functional tests from Ch8 playtime
+    assert_select '#columns #side a', minimum: 4
+    assert_select '.list_description', 3
+    assert_select 'h1', 'Products'
+    assert_select '.products a', 'Show', minimum: 3
+    assert_select '.products a', 'Edit', minimum: 3
+    assert_select '.products a', 'Destroy', minimum: 3
+# end functional tests
   end
 
   test "should get new" do
@@ -59,5 +67,5 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
                             image_url:    "fred.png")
       assert product.invalid?
       assert_equal [I18n.translate('errors.messages.taken')], product.errors[:title]
-      end
+    end
 end
