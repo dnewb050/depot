@@ -1,7 +1,9 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Your Pragmatic Catalog</h1>
-
+<% if @count > 5 %>
+  <p>You've viewed this page <%= pluralize(@count, "time") %> since your last add to cart.</p>
+<% end %>
 <% cache @products do %>
   <% @products.each do |product| %>
     <% cache product do %>
@@ -11,6 +13,7 @@
         <%= sanitize(product.description) %>
         <div class="price_line">
             <span class="price"><%= number_to_currency(product.price, delimiter: ",") %></span>
+            <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
         </div>
       </div>
     <% end %>
