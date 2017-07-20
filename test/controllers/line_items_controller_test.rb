@@ -25,6 +25,18 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
     assert_select 'h2', 'Your Cart'
   end
 
+  test "should create line_item via ajax" do
+    assert_difference('LineItem.count') do
+      post line_items_url, params: { product_id: products(:ruby).id },
+      xhr: true
+    end
+
+    assert_response :success
+    assert_select_jquery :html, '#cart' do
+      assert_select 'tr#current_item td', /Programming Ruby 1.9/
+    end
+  end
+
   test "should show line_item" do
     get line_item_url(@line_item)
     assert_response :success
@@ -43,7 +55,7 @@ class LineItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy line_item" do
     cart_id = @line_item.cart_id
-    
+
     assert_difference('LineItem.count', -1) do
       delete line_item_url(@line_item)
     end
