@@ -61,7 +61,7 @@ class LineItemsController < ApplicationController
     # @line_item = LineItem.find(params[:id])
     @line_item.destroy
     respond_to do |format|
-      format.html { redirect_to cart_path(session[:cart_id]), notice: 'Item was removed from your cart.' }
+      format.html { redirect_to cart_path(@line_item.cart_id), notice: 'Item was removed from your cart.' } # does not work with session[:cart_id]
       format.json { head :no_content }
     end
   end
