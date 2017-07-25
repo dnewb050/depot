@@ -16,8 +16,18 @@ Rails.application.routes.draw do
   get 'sessions/destroy'
 
   resources :users
+
   resources :orders
-  resources :line_items
+
+  resources :line_items do
+     member do
+      put 'increase'
+      put 'decrease'
+     end
+     put 'increase', on: :member
+     put 'decrease', on: :member
+   end
+
   resources :carts
   root 'store#index', as: 'store_index'
 

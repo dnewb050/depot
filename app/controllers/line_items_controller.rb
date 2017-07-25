@@ -68,6 +68,26 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def increase
+    @cart = Cart.find(session[:cart_id])
+    @carts_line_item = @cart.line_items.find_by(id: params[:id])
+    increase_quantity(@carts_line_item.id)
+
+    respond_to do |format|
+        format.html { redirect_to store_index_url}
+    end
+  end
+
+  def decrease
+    @cart = Cart.find(session[:cart_id])
+    @carts_line_item = @cart.line_items.find_by(id: params[:id])
+    decrease_quantity(@carts_line_item.id)
+
+    respond_to do |format|
+        format.html { redirect_to store_index_url}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item
@@ -77,6 +97,22 @@ class LineItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def line_item_params
       params.require(:line_item).permit(:product)
+    end
+
+    def increase_quantity(line_item_id)
+      item = LineItem.find(line_item_id)
+      item.quantity += 1
+      item.save
+    end
+
+    def decrease_quantity(line_item_id)
+      item = LineItem.find(line_item_id)
+      if item.quantity == 1
+        item.destroy
+      else
+        item.quantity -= 1
+        item.save
+      end
     end
 
 end
