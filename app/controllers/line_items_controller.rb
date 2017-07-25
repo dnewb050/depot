@@ -1,6 +1,7 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  skip_before_action :authorize, only: :create
+  skip_before_action :authorize, only: [:create, :increase, :decrease]
+
   before_action :set_cart, only: [:create]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
@@ -75,6 +76,7 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
         format.html { redirect_to store_index_url}
+        format.js   { @current_item = @carts_line_item }
     end
   end
 
@@ -85,6 +87,7 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
         format.html { redirect_to store_index_url}
+        format.js   { @current_item = @carts_line_item }
     end
   end
 
