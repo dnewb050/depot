@@ -4,6 +4,6 @@ Thank you for your recent order from the Pragmatic Store.
 
 You ordered the following items:
 
-<%= render partial: "line_items_mailer", locals: {@order.line_items} %>
+<%= render partial: "application/line_item_mailer.text.erb", collection: @order.line_items, as: :line_item %>
 
 We'll send you a separate e-mail when your order ships.

@@ -4,5 +4,5 @@
 </p>
 <table>
   <tr><th colspan="2">QTY</th><th>Description</th></tr>
-<%= render @order.line_items -%>
+<%= render partial: "application/line_item_mailer.html.erb", collection: @order.line_items, as: :line_item %>
 </table>
