@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @fulfillment.order.id %>
+</p>
+
+<p>
+  <strong>Ship type:</strong>
+  <%= @fulfillment.ship_type %>
+</p>
+
+<p>
+  <strong>Carrier:</strong>
+  <%= @fulfillment.carrier %>
+</p>
+
+<p>
+  <strong>Tracking_number:</strong>
+  <%= @fulfillment.tracking_number %>
+</p>
+
+<%= link_to 'Edit', edit_order_fulfillment_path(@fulfillment) %> |
+<%= link_to 'Back', order_fulfillments_path %>

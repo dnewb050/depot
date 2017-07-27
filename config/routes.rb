@@ -17,7 +17,10 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :orders
+  resources :orders do
+    resources :fulfillments
+  end
+
 
   resources :line_items do
      member do
@@ -32,5 +35,8 @@ Rails.application.routes.draw do
   root 'store#index', as: 'store_index'
 
   resources :products
+
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

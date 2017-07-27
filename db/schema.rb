@@ -10,22 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170724155045) do
+ActiveRecord::Schema.define(version: 20170726174413) do
 
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "fulfillments", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "ship_type"
+    t.string   "carrier"
+    t.integer  "tracking_number"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["order_id"], name: "index_fulfillments_on_order_id"
+  end
+
   create_table "line_items", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "cart_id"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.integer  "quantity",                           default: 1
-    t.decimal  "price",      precision: 8, scale: 2
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.integer  "quantity",                                default: 1
+    t.decimal  "price",           precision: 8, scale: 2
     t.integer  "order_id"
+    t.integer  "fulfillments_id"
     t.index ["cart_id"], name: "index_line_items_on_cart_id"
+    t.index ["fulfillments_id"], name: "index_line_items_on_fulfillments_id"
     t.index ["order_id"], name: "index_line_items_on_order_id"
     t.index ["product_id"], name: "index_line_items_on_product_id"
   end
